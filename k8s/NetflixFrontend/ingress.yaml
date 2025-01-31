@@ -7,13 +7,13 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: alonit-netflix-lb-1568761756.eu-north-1.elb.amazonaws.com
+  - host: royebk8s.devops-int-college.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: netflix-frontend-service
+            name: netflix-frontend
             port:
               number: 3000
