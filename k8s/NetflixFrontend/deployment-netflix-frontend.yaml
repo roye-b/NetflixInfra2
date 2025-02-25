@@ -1,3 +1,5 @@
+# k8s/deployment-demo.yaml
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -5,7 +7,7 @@ metadata:
   labels:
     app: netflix-frontend
 spec:
-  replicas: 60
+  replicas: 1
   selector:
     matchLabels:
       app: netflix-frontend
@@ -16,15 +18,15 @@ spec:
     spec:
       containers:
       - name: server
-        image: ofekhalabi/netflix-frontend:10
+        image: alonithuji/netflix-frontend:0.0.1
         env:
-        - name: MOVIE_CATALOG_SERVICE
-          value: "http://netflix-mc-service:8080"
+          - name: MOVIE_CATALOG_SERVICE
+            value: http://netflix-catalog-service:8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: netflix-frontend-service
+  name: netflix-service
 spec:
   selector:
     app: netflix-frontend
