@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('Git setup') {
+        stage('Setup') {
             steps {
                 /*
                 Jenkins checks out a specific commit, rather than HEAD of the repo.
@@ -16,11 +16,21 @@ pipeline {
                 */
 
                 sh 'git checkout -b main || git checkout main'
+                sh '''
+                  wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
+                  chmod +x /usr/bin/yq
+                '''
             }
         }
         stage('update YAML manifest') {
             steps {
-                sh ''
+                sh '''
+                  cd k8s/$SERVICE_NAME
+                  yq e -i ".spec.template.spec.containers[0].image = \"$IMAGE_FULL_NAME_PARAM\"" deployment.yaml
+
+                  git add deployment.yaml
+                  git commit -m "Version updated for $SERVICE_NAME - $IMAGE_FULL_NAME_PARAM"
+                '''
                 /*
 
                 Now your turn! implement the pipeline steps ...
