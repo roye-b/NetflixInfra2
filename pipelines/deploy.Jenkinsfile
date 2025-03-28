@@ -21,6 +21,7 @@ pipeline {
         stage('update YAML manifest') {
             steps {
                 sh '''
+
                 /*
                 Now your turn! implement the pipeline steps ...
 
