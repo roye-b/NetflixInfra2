@@ -23,17 +23,15 @@ pipeline {
         stage('update YAML manifest') {
             steps {
                 sh '''
-                /*
+                # Now your turn! implement the pipeline steps ...
 
-                Now your turn! implement the pipeline steps ...
-
-                - `cd` into the directory corresponding to the SERVICE_NAME variable.
-                - Change the YAML manifests according to the new $IMAGE_FULL_NAME_PARAM parameter.
-                  You can do so using `yq` or `sed` command, by a simple Python script, or any other method.
-                - Commit the changes
-                   * Setting global Git user.name and user.email in 'Manage Jenkins > System' is recommended.
-                   * Setting Shell executable to `/bin/bash` in 'Manage Jenkins > System' is recommended.
-                */
+                # - `cd` into the directory corresponding to the SERVICE_NAME variable.
+                # - Change the YAML manifests according to the new $IMAGE_FULL_NAME_PARAM parameter.
+                #   You can do so using `yq` or `sed` command, by a simple Python script, or any other method.
+                # - Commit the changes
+                #    * Setting global Git user.name and user.email in 'Manage Jenkins > System' is recommended.
+                #    * Setting Shell executable to `/bin/bash` in 'Manage Jenkins > System' is recommended.
+                '''
             }
         }
         stage('Git push') {
@@ -43,7 +41,7 @@ pipeline {
                 usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_TOKEN')
                ]) {
 
-                 sh 'git push https://$GITHUB_TOKEN@github.com/alonitac/NetflixInfra2.git main'
+                 sh 'git push https://$GITHUB_TOKEN@github.com/roye-b/NetflixInfra2.git main'
 
                }
             }
