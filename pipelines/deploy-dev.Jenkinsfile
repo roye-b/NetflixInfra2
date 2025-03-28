@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh '''
                   cd k8s/dev/$SERVICE_NAME
-
+                   #
                   #yq e -i ".spec.template.spec.containers[0].image = \"$IMAGE_FULL_NAME_PARAM\"" deployment.yaml
 
                   yamlFile=deployment.yaml
