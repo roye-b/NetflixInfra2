@@ -23,12 +23,6 @@ pipeline {
         stage('update YAML manifest') {
             steps {
                 sh '''
-                  cd k8s/$SERVICE_NAME
-                  yq e -i ".spec.template.spec.containers[0].image = \\"$IMAGE_FULL_NAME_PARAM\\"" deployment.yaml
-
-                  git add deployment.yaml
-                  git commit -m "Version updated for $SERVICE_NAME - $IMAGE_FULL_NAME_PARAM"
-                '''
                 /*
 
                 Now your turn! implement the pipeline steps ...
