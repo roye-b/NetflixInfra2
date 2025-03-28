@@ -16,22 +16,24 @@ pipeline {
                 */
 
                 sh 'git checkout -b main || git checkout main'
+                sh '''
+                  wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
+                  chmod +x /usr/bin/yq
+                '''
             }
         }
         stage('update YAML manifest') {
             steps {
                 sh '''
                 #
-                /*
-                Now your turn! implement the pipeline steps ...
+                /* sh '''
+                  cd k8s/$SERVICE_NAME
+                  yq e -i ".spec.template.spec.containers[0].image = \"$IMAGE_FULL_NAME_PARAM\"" deployment.yaml
 
-                - `cd` into the directory corresponding to the SERVICE_NAME variable.
-                - Change the YAML manifests according to the new $IMAGE_FULL_NAME_PARAM parameter.
-                  You can do so using `yq` or `sed` command, by a simple Python script, or any other method.
-                - Commit the changes
-                   * Setting global Git user.name and user.email in 'Manage Jenkins > System' is recommended.
-                   * Setting Shell executable to `/bin/bash` in 'Manage Jenkins > System' is recommended.
-                */
+                  git add deployment.yaml
+                  git commit -m "Version updated for $SERVICE_NAME - $IMAGE_FULL_NAME_PARAM"
+                '''
+
             }
         }
         stage('Git push') {
