@@ -17,7 +17,7 @@ pipeline {
         stage('update YAML manifest') {
             steps {
                 sh '''
-                  cd k8s/dev/$SERVICE_NAME
+                  cd k8s/dev/NetflixFrontend/$SERVICE_NAME
                    #
                   #yq e -i ".spec.template.spec.containers[0].image = \"$IMAGE_FULL_NAME_PARAM\"" deployment.yaml
 
