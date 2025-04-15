@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: royeb/netflix-frontend-dev:v1.0.18
+          image: royeb/netflix-frontend-dev:v1.0.21
           env:
             - name: MOVIE_CATALOG_SERVICE
               value: http://netflix-catalog-service:8080
@@ -37,4 +37,4 @@ spec:
   template:
     spec:
       containers:
-        - image: royeb/netflix-frontend-dev:v1.0.18
+        - image: royeb/netflix-frontend-dev:v1.0.21
